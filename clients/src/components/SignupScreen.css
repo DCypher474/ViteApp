@@ -1,0 +1,423 @@
+.auth-container {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #b3e5fc;
+  padding: 20px;
+  font-family: 'Lexend', sans-serif;
+}
+
+.auth-content {
+  background: #f4f9ff;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  animation: slideUp 0.5s ease-out;
+}
+
+.auth-title {
+  font-size: 28px;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 10px;
+  text-align: center;
+  font-family: 'Lexend', sans-serif;
+}
+
+.auth-subtitle {
+  color: #666;
+  text-align: center;
+  margin-bottom: 30px;
+  font-family: 'Lexend', sans-serif;
+  font-weight: 300;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  position: relative;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 30px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 20px;
+  transition: border-color 0.3s;
+  font-family: 'Lexend', sans-serif;
+}
+
+.form-group input:focus {
+  border-color: #2196f3;
+  outline: none;
+}
+
+.auth-button {
+  background: #2196f3;
+  color: white;
+  padding: 15px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+  font-family: 'Lexend', sans-serif;
+}
+
+.auth-button:hover {
+  background: #1976d2;
+}
+
+.auth-divider {
+  text-align: center;
+  margin: 20px 0;
+  position: relative;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 45%;
+  height: 1px;
+  background: #ddd;
+}
+
+.auth-divider::before {
+  left: 0;
+}
+
+.auth-divider::after {
+  right: 0;
+}
+
+.auth-divider span {
+  background: white;
+  padding: 0 10px;
+  color: #666;
+}
+
+.social-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.social-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: white;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.social-button:hover {
+  background: #f5f5f5;
+}
+
+.social-button img {
+  width: 24px;
+  height: 24px;
+}
+
+.auth-switch {
+  text-align: center;
+  margin-top: 20px;
+  color: #666;
+}
+
+.auth-switch a {
+  color: #2196f3;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.auth-switch a:hover {
+  text-decoration: underline;
+}
+
+.forgot-password {
+  color: #2196f3;
+  text-decoration: none;
+  text-align: right;
+  font-size: 14px;
+  margin-top: -10px;
+}
+
+.forgot-password:hover {
+  text-decoration: underline;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 480px) {
+  .auth-content {
+    padding: 30px 20px;
+  }
+}
+
+.back-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: white;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
+
+.back-button:hover {
+  transform: translateX(-3px);
+}
+
+.google-icon {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+.social-button.google {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 12px 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  color: #444;
+  width: 100%;
+}
+
+.social-button.google:hover {
+  background: #f8f8f8;
+  border-color: #ccc;
+}
+
+@media (max-width: 480px) {
+  .back-button {
+    top: 10px;
+    left: 10px;
+    width: 35px;
+    height: 35px;
+  }
+}
+
+.password-input-container {
+  position: relative;
+  width: 100%;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #666;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.password-toggle:hover {
+  color: #2196f3;
+}
+
+/* Adjust the input padding to prevent text from going under the icon */
+.password-input-container input {
+  padding-right: 40px;
+}
+
+.error-message {
+  background-color: #ffebee;
+  color: #c62828;
+  padding: 12px;
+  border-radius: 8px;
+  text-align: center;
+  margin-bottom: 15px;
+  font-family: 'Lexend', sans-serif;
+  font-weight: 400;
+}
+
+.success-message {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+  padding: 12px;
+  border-radius: 8px;
+  text-align: center;
+  margin-bottom: 15px;
+  font-family: 'Lexend', sans-serif;
+  font-weight: 400;
+}
+
+/* Add Lexend font to all text elements */
+.auth-container {
+  font-family: 'Lexend', sans-serif;
+}
+
+.auth-title {
+  font-family: 'Lexend', sans-serif;
+  font-weight: 600;
+}
+
+.auth-subtitle {
+  font-family: 'Lexend', sans-serif;
+  font-weight: 300;
+}
+
+input, button {
+  font-family: 'Lexend', sans-serif;
+}
+
+/* Success/Error Message Containers */
+.message-container {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  min-width: 300px;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.message-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+}
+
+.success .message-icon {
+  background: #4CAF50;
+  box-shadow: 0 0 0 8px rgba(76, 175, 80, 0.1),
+              0 0 0 16px rgba(76, 175, 80, 0.05);
+}
+
+.error .message-icon {
+  background: #f44336;
+  box-shadow: 0 0 0 8px rgba(244, 67, 54, 0.1),
+              0 0 0 16px rgba(244, 67, 54, 0.05);
+}
+
+.message-icon svg {
+  font-size: 24px;
+  color: white;
+}
+
+.message-title {
+  font-family: 'Lexend', sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.success .message-title {
+  color: #4CAF50;
+}
+
+.error .message-title {
+  color: #f44336;
+}
+
+.message-text {
+  font-family: 'Lexend', sans-serif;
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.message-button {
+  font-family: 'Lexend', sans-serif;
+  padding: 8px 24px;
+  border-radius: 20px;
+  border: 1px solid;
+  background: transparent;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.success .message-button {
+  color: #4CAF50;
+  border-color: #4CAF50;
+}
+
+.error .message-button {
+  color: #f44336;
+  border-color: #f44336;
+}
+
+.message-button:hover {
+  background: #f5f5f5;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Add these new styles */
+.auth-logo {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.auth-logo .logo {
+  font-size: 64px;
+  margin-bottom: 10px;
+}
+
+.auth-logo .app-name {
+  font-size: 32px;
+  font-weight: 700;
+  color: #2c3e50;
+  margin: 0;
+} 

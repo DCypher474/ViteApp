@@ -1,0 +1,210 @@
+.add-task-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.add-task-modal {
+  background: white;
+  border-radius: 15px;
+  padding: 20px;
+  width: 90%;
+  max-width: 400px;
+  position: relative;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.add-task-modal form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.add-task-modal h2 {
+  margin: 0 0 15px;
+  color: #2c3e50;
+  text-align: center;
+}
+
+.add-task-modal input,
+.add-task-modal select {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 16px;
+  color: #2c3e50;
+  transition: border-color 0.3s ease;
+}
+
+.add-task-modal input:focus,
+.add-task-modal select:focus {
+  border-color: #2196f3;
+  outline: none;
+}
+
+.close-button {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #666;
+  cursor: pointer;
+  padding: 5px;
+  transition: color 0.3s ease;
+}
+
+.close-button:hover {
+  color: #f44336;
+}
+
+.duration-input {
+  display: flex;
+  gap: 10px;
+}
+
+.duration-input input {
+  flex: 1;
+}
+
+.custom-subject-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.subject-input,
+.icon-select {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 16px;
+  color: #2c3e50;
+}
+
+.custom-subject-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.confirm-subject-btn,
+.cancel-subject-btn {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.confirm-subject-btn {
+  background: #4caf50;
+  color: white;
+}
+
+.confirm-subject-btn:hover {
+  background: #388e3c;
+}
+
+.cancel-subject-btn {
+  background: #f44336;
+  color: white;
+}
+
+.cancel-subject-btn:hover {
+  background: #d32f2f;
+}
+
+.select-container {
+  position: relative;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.subject-select {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 16px;
+  color: #2c3e50;
+  transition: border-color 0.3s ease;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: white;
+  cursor: pointer;
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+.subject-select option {
+  padding: 12px;
+  font-size: 16px;
+  color: #2c3e50;
+  background: white;
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+/* Custom arrow */
+.select-container::after {
+  content: '▼';
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #666;
+  pointer-events: none;
+  font-size: 12px;
+}
+
+/* Mobile adjustments */
+@media (max-width: 480px) {
+  .add-task-modal {
+    width: 95%;
+    margin: 10px;
+    padding: 15px;
+    max-height: 90vh;
+  }
+
+  .select-container select,
+  .select-container select option {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .duration-input {
+    flex-wrap: wrap;
+  }
+
+  .duration-input input {
+    width: calc(50% - 5px);
+  }
+
+  .custom-subject-form {
+    margin: 5px 0;
+  }
+
+  .custom-subject-buttons {
+    flex-direction: column;
+  }
+
+  .confirm-subject-btn,
+  .cancel-subject-btn {
+    width: 100%;
+  }
+}
