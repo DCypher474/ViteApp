@@ -13,5 +13,6 @@
   },
   "devDependencies": {
     "vite-plugin-pwa": "^0.21.1"
-  }
+  },
+  "type": "commonjs"
 }
