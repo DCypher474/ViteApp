@@ -42,20 +42,34 @@ app.use((req, res, next) => {
     next();
 });
 
-// MongoDB Connection
-mongoose.connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-})
-.then(() => {
-    console.log('Successfully connected to MongoDB.');
-    console.log('Database connection string:', process.env.MONGODB_URI.replace(/\/\/([^:]+):([^@]+)@/, '//[HIDDEN_CREDENTIALS]@'));
-})
-.catch((err) => {
-    console.error('MongoDB connection error:', err);
-    console.error('Connection string used:', process.env.MONGODB_URI.replace(/\/\/([^:]+):([^@]+)@/, '//[HIDDEN_CREDENTIALS]@'));
-    process.exit(1);
-});
+// MongoDB Connection with index cleanup
+const connectDB = async () => {
+    try {
+        const conn = await mongoose.connect(process.env.MONGODB_URI, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        });
+
+        // Drop the username index if it exists
+        try {
+            const User = mongoose.model('User');
+            await User.collection.dropIndex('username_1');
+            console.log('Successfully dropped username index');
+        } catch (indexError) {
+            // Index might not exist, which is fine
+            console.log('No username index found or already dropped');
+        }
+
+        console.log('Successfully connected to MongoDB.');
+        console.log('Database connection string:', process.env.MONGODB_URI.replace(/\/\/([^:]+):([^@]+)@/, '//[HIDDEN_CREDENTIALS]@'));
+    } catch (error) {
+        console.error('MongoDB connection error:', error);
+        console.error('Connection string used:', process.env.MONGODB_URI.replace(/\/\/([^:]+):([^@]+)@/, '//[HIDDEN_CREDENTIALS]@'));
+        process.exit(1);
+    }
+};
+
+connectDB();
 
 // Add global error handler for unhandled promises
 process.on('unhandledRejection', (err) => {

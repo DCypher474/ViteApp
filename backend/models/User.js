@@ -26,18 +26,6 @@ const userSchema = new mongoose.Schema({
     timestamps: true
 });
 
-// Remove any existing indexes
-userSchema.indexes().forEach(async ([name, index]) => {
-    try {
-        await mongoose.model('User').collection.dropIndex(name);
-    } catch (error) {
-        // Index might not exist, ignore error
-    }
-});
-
-// Create only the indexes we need
-userSchema.index({ email: 1 }, { unique: true });
-
 // Hash password before saving
 userSchema.pre('save', async function(next) {
     if (this.isModified('password')) {
@@ -65,4 +53,23 @@ userSchema.methods.comparePassword = async function(candidatePassword) {
     return bcrypt.compare(candidatePassword, this.password);
 };
 
-module.exports = mongoose.model('User', userSchema);
+// Create model after dropping any existing username index
+const User = mongoose.model('User', userSchema);
+
+// Ensure indexes are properly set up
+(async () => {
+    try {
+        // Drop any existing username index
+        await User.collection.dropIndex('username_1').catch(() => {
+            // Index might not exist, which is fine
+            console.log('No username index found or already dropped');
+        });
+
+        // Create only the indexes we need
+        await User.createIndexes();
+    } catch (error) {
+        console.error('Error managing indexes:', error);
+    }
+})();
+
+module.exports = User;
