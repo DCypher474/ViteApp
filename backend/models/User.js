@@ -46,11 +46,6 @@ userSchema.pre('save', async function(next) {
     next();
 });
 
-// Compare password method
-userSchema.methods.comparePassword = async function(candidatePassword) {
-    return bcrypt.compare(candidatePassword, this.password);
-};
-
 // Add password validation
 userSchema.path('password').validate(function(password) {
     return password.length >= 8 && 
@@ -64,5 +59,10 @@ userSchema.path('email').validate(async function(email) {
     const count = await this.constructor.countDocuments({ email });
     return !count;
 }, 'Email already exists');
+
+// Compare password method
+userSchema.methods.comparePassword = async function(candidatePassword) {
+    return bcrypt.compare(candidatePassword, this.password);
+};
 
 module.exports = mongoose.model('User', userSchema);
