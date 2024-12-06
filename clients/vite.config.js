@@ -16,7 +16,7 @@ export default defineConfig({
         theme_color: '#ffffff',
         icons: [
           {
-            src: '/vite.svg',
+            src: '/192x192.png',
             sizes: '192x192',
             type: 'image/svg+xml',
             purpose: 'any maskable'
