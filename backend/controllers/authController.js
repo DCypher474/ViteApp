@@ -27,7 +27,7 @@ exports.register = async (req, res) => {
         }
 
         // Check if email already exists
-        const existingUser = await User.findOne({ email: email });
+        const existingUser = await User.findOne({ email: email.toLowerCase() });
 
         if (existingUser) {
             return res.status(400).json({ 
@@ -39,7 +39,7 @@ exports.register = async (req, res) => {
         // Create new user
         const user = new User({
             fullName,
-            email,
+            email: email.toLowerCase(),
             password
         });
 
@@ -56,6 +56,15 @@ exports.register = async (req, res) => {
 
     } catch (error) {
         console.error('Registration error:', error);
+        
+        // Handle duplicate key error specifically
+        if (error.code === 11000) {
+            return res.status(400).json({ 
+                message: 'Validation error',
+                errors: ['Email already exists']
+            });
+        }
+
         res.status(500).json({ 
             message: 'Server error',
             errors: [error.message]

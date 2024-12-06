@@ -26,6 +26,18 @@ const userSchema = new mongoose.Schema({
     timestamps: true
 });
 
+// Remove any existing indexes
+userSchema.indexes().forEach(async ([name, index]) => {
+    try {
+        await mongoose.model('User').collection.dropIndex(name);
+    } catch (error) {
+        // Index might not exist, ignore error
+    }
+});
+
+// Create only the indexes we need
+userSchema.index({ email: 1 }, { unique: true });
+
 // Hash password before saving
 userSchema.pre('save', async function(next) {
     if (this.isModified('password')) {
