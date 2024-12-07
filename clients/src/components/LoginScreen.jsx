@@ -67,7 +67,9 @@ const LoginScreen = () => {
       setSuccess('Login successful!');
       setShowMessage(true);
       
-      navigate('/home', { replace: true });
+      setTimeout(() => {
+        navigate('/home', { replace: true });
+      }, 1500);
 
     } catch (err) {
       setMessageType('error');

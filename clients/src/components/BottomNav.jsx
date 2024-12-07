@@ -1,4 +1,4 @@
-import { faCog, faHome, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faCog, faHome, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
@@ -33,10 +33,12 @@ const BottomNav = () => {
     button.appendChild(ripple);
 
     const icon = button.querySelector('.fa-icon');
-    icon.style.transform = 'scale(0.9)';
-    setTimeout(() => {
-      icon.style.transform = '';
-    }, 150);
+    if (icon) {
+      icon.style.transform = 'scale(0.9)';
+      setTimeout(() => {
+        icon.style.transform = '';
+      }, 150);
+    }
 
     setTimeout(() => {
       ripple.remove();
@@ -48,25 +50,33 @@ const BottomNav = () => {
     }));
   };
 
-  const navItems = [
-    { path: '/home', icon: faHome, label: 'Home' },
-    { path: '/profile', icon: faUser, label: 'Profile' },
-    { path: '/settings', icon: faCog, label: 'Settings' }
-  ];
-
   return (
     <nav className="bottom-nav">
-      {navItems.map(({ path, icon, label }) => (
-        <Link
-          key={path}
-          to={path}
-          className={`nav-icon ${isActive(path) ? 'active' : ''}`}
-          onClick={(e) => createRipple(e, path)}
-          data-label={label}
-        >
-          <FontAwesomeIcon icon={icon} className="fa-icon" />
-        </Link>
-      ))}
+      <Link
+        to="/home"
+        className={`nav-icon ${isActive('/home') ? 'active' : ''}`}
+        onClick={(e) => createRipple(e, '/home')}
+      >
+        <FontAwesomeIcon icon={faHome} className="fa-icon" />
+      </Link>
+
+      <Link
+        to="/study"
+        className="nav-icon add-button"
+        onClick={(e) => createRipple(e, '/study')}
+      >
+        <div className="add-icon-circle">
+          <FontAwesomeIcon icon={faPlus} className="fa-icon" />
+        </div>
+      </Link>
+
+      <Link
+        to="/settings"
+        className={`nav-icon ${isActive('/settings') ? 'active' : ''}`}
+        onClick={(e) => createRipple(e, '/settings')}
+      >
+        <FontAwesomeIcon icon={faCog} className="fa-icon" />
+      </Link>
     </nav>
   );
 };

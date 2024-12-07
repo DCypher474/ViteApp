@@ -1,4 +1,4 @@
-import { faBell, faSearch, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faBell, faChevronDown, faSearch, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -12,7 +12,6 @@ import MessagePopup from './MessagePopup';
 const HomeScreen = () => {
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const [userData, setUserData] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
   const [success, setSuccess] = useState('');
   const location = useLocation();
   const profileRef = useRef(null);
@@ -22,6 +21,8 @@ const HomeScreen = () => {
   const [hasReminders, setHasReminders] = useState(false);
   const [recentActivities, setRecentActivities] = useState([]);
   const { activeTask, timer, formatTime } = useTask();
+  const [showOngoingSection, setShowOngoingSection] = useState(true);
+  const [showRecentSection, setShowRecentSection] = useState(true);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -33,7 +34,6 @@ const HomeScreen = () => {
         }
 
         const response = await api.get('/auth/user');
-        console.log('User data response:', response.data);
         setUserData(response.data.user);
       } catch (error) {
         console.error('Error fetching user data:', error);
@@ -41,8 +41,6 @@ const HomeScreen = () => {
           localStorage.removeItem('token');
           navigate('/login');
         }
-      } finally {
-        setIsLoading(false);
       }
     };
 
@@ -152,14 +150,6 @@ const HomeScreen = () => {
     navigate('/study');
   };
 
-  if (isLoading) {
-    return (
-      <div className="home-screen">
-        <div className="loading-spinner">Loading...</div>
-      </div>
-    );
-  }
-
   return (
     <div className="home-screen">
       {success && <div className="success-message">{success}</div>}
@@ -233,56 +223,52 @@ const HomeScreen = () => {
         </div>
 
         <section className="recent-activity">
-          <h2>Recent Activity</h2>
-          <div className="activity-list">
-            {recentActivities.map((activity) => (
-              <div key={activity._id} className="activity-item">
-                <div className="activity-icon">📚</div>
-                <div className="activity-details">
-                  <h4>{activity.subject}</h4>
-                  <p>{activity.notes}</p>
-                  <p className="completion-time">
-                    Completed in {activity.completedTime} minutes
-                  </p>
-                </div>
-                <div className="activity-time">
-                  {new Date(activity.timestamp).toLocaleTimeString([], {
-                    hour: '2-digit',
-                    minute: '2-digit'
-                  })}
-                </div>
-              </div>
-            ))}
-            {recentActivities.length === 0 && (
-              <p className="no-activities">No recent activities</p>
-            )}
+          <div className="section-header" onClick={() => setShowOngoingSection(!showOngoingSection)}>
+            <h2>Ongoing Activity</h2>
+            <FontAwesomeIcon 
+              icon={faChevronDown} 
+              className={`dropdown-icon ${showOngoingSection ? 'rotated' : ''}`}
+            />
           </div>
+          {showOngoingSection && (
+            <div className="activity-list">
+              {activeTask ? (
+                <div className="activity-item ongoing" onClick={handleOngoingTaskClick}>
+                  <div className="activity-icon">⏳</div>
+                  <div className="activity-details">
+                    <h4>{activeTask.subject}</h4>
+                    <p>{activeTask.title}</p>
+                    <div className="ongoing-progress">
+                      <div className="timer">{formatTime(timer)}</div>
+                      <span className="time-remaining">
+                        {Math.max(activeTask.duration - Math.floor(timer / 60), 0)} min remaining
+                      </span>
+                    </div>
+                  </div>
+                  <div className="activity-time">
+                    In Progress
+                  </div>
+                </div>
+              ) : (
+                <p className="no-activities">No ongoing tasks</p>
+              )}
+            </div>
+          )}
         </section>
 
         <section className="recent-activity">
-          <h2>Ongoing Task</h2>
-          <div className="activity-list">
-            {activeTask ? (
-              <div className="activity-item ongoing" onClick={handleOngoingTaskClick}>
-                <div className="activity-icon">⏳</div>
-                <div className="activity-details">
-                  <h4>{activeTask.subject}</h4>
-                  <p>{activeTask.title}</p>
-                  <div className="ongoing-progress">
-                    <div className="timer">{formatTime(timer)}</div>
-                    <span className="time-remaining">
-                      {Math.max(activeTask.duration - Math.floor(timer / 60), 0)} min remaining
-                    </span>
-                  </div>
-                </div>
-                <div className="activity-time">
-                  In Progress
-                </div>
-              </div>
-            ) : (
-              <p className="no-activities">No ongoing tasks</p>
-            )}
+          <div className="section-header" onClick={() => setShowRecentSection(!showRecentSection)}>
+            <h2>Recent Activity</h2>
+            <FontAwesomeIcon 
+              icon={faChevronDown} 
+              className={`dropdown-icon ${showRecentSection ? 'rotated' : ''}`}
+            />
           </div>
+          {showRecentSection && (
+            <div className="activity-list">
+              <p className="no-activities">No recent activities</p>
+            </div>
+          )}
         </section>
       </main>
 

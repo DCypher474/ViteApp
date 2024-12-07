@@ -5,14 +5,14 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #b3e5fc;
+  background-color: rgba(167, 227, 255, 0.8);
   padding: 20px;
   font-family: 'Lexend', sans-serif;
 }
 
 .auth-content {
-  background: #f4f9ff;
-  padding: 40px;
+  background: rgba(244, 249, 255, 0.9);
+  padding: 30px;
   border-radius: 20px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   width: 100%;
@@ -40,7 +40,7 @@
 .auth-form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 5px;
 }
 
 .form-group {
@@ -49,10 +49,10 @@
 
 .form-group input {
   width: 100%;
-  padding: 30px;
+  padding: 15px;
   border: 1px solid #ddd;
   border-radius: 8px;
-  font-size: 20px;
+  font-size: 18px;
   transition: border-color 0.3s;
   font-family: 'Lexend', sans-serif;
 }
@@ -73,6 +73,7 @@
   cursor: pointer;
   transition: background 0.3s;
   font-family: 'Lexend', sans-serif;
+  margin-top: 8px;
 }
 
 .auth-button:hover {
@@ -420,4 +421,98 @@ input, button {
   font-weight: 700;
   color: #2c3e50;
   margin: 0;
+}
+
+/* Message Popup Styles */
+.message-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.message-popup {
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  text-align: center;
+  width: 90%;
+  max-width: 320px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.message-popup .message-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+}
+
+.message-popup.success .message-icon {
+  background: #4CAF50;
+  box-shadow: 0 0 0 8px rgba(76, 175, 80, 0.2);
+}
+
+.message-popup.error .message-icon {
+  background: #f44336;
+  box-shadow: 0 0 0 8px rgba(244, 67, 54, 0.2);
+}
+
+.message-popup .message-icon svg {
+  color: white;
+  font-size: 24px;
+}
+
+.message-popup h2 {
+  margin: 0 0 8px;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.message-popup.success h2 {
+  color: #4CAF50;
+}
+
+.message-popup.error h2 {
+  color: #f44336;
+}
+
+.message-popup p {
+  margin: 0 0 20px;
+  color: #666;
+  font-size: 16px;
+}
+
+.message-popup button {
+  padding: 8px 24px;
+  border-radius: 20px;
+  border: 1px solid;
+  background: transparent;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.message-popup.success button {
+  color: #4CAF50;
+  border-color: #4CAF50;
+}
+
+.message-popup.error button {
+  color: #f44336;
+  border-color: #f44336;
+}
+
+.message-popup button:hover {
+  background: #f5f5f5;
 } 

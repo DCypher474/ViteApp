@@ -1,24 +1,21 @@
-import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 
 const MessagePopup = ({ type, message, onClose }) => {
   return (
-    <>
-      <div className="message-overlay" onClick={onClose} />
-      <div className={`message-container ${type}`}>
+    <div className="message-popup-overlay">
+      <div className={`message-popup ${type}`}>
         <div className="message-icon">
-          <FontAwesomeIcon icon={faCheck} />
+          <FontAwesomeIcon icon={type === 'success' ? faCheck : faTimes} />
         </div>
-        <div className="message-title">
-          Yeah!
-        </div>
-        <div className="message-text">{message}</div>
-        <button className="message-button" onClick={onClose}>
-          Done
+        <h2>{type === 'success' ? 'Yeah!' : 'Oh no!'}</h2>
+        <p>{message}</p>
+        <button onClick={onClose}>
+          {type === 'success' ? 'Done' : 'Try Again'}
         </button>
       </div>
-    </>
+    </div>
   );
 };
 
